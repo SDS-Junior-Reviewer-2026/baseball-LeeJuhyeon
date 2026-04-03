@@ -48,6 +48,13 @@ public class GameTest {
         assertMatchedNumber(game.guess("456"), false, 0, 0);
     }
 
+    @Test
+    @DisplayName("스트라이크만_있을_경우_2_strike_0_ball")
+    public void returnSolvedResultIfSomeMatchedNumber() {
+        generateQuestion("123");
+        assertMatchedNumber(game.guess("120"), false, 2, 0);
+    }
+
     private void generateQuestion(String guessNumber) {
         game.question = guessNumber;
     }
@@ -59,10 +66,6 @@ public class GameTest {
         assertEquals(balls, result.getBalls());
     }
 
-    @Test
-    public void 스트라이크만_있을_경우_1_strike_0_ball() {
-
-    }
 
     @Test
     public void 볼만_있을_경우_0_strike_1_ball() {
