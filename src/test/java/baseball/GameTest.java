@@ -7,10 +7,14 @@ public class GameTest {
 
 	@Test
 	public void 입력값이_없을_경우() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			Game game = new Game();
+			game.guess(null);
+		});
 	}
 	
 	@Test
-	public void 입력값_자리수가_세자리가_아닐�경우() {
+	public void 입력값_자리수가_세자리가_아닐_경우() {
 
 	}
 	
