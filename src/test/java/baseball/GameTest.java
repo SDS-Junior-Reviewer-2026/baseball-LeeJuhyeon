@@ -4,8 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameTest {
 
@@ -38,17 +37,15 @@ public class GameTest {
 
 
     @Test
-    public void 입력값에_숫자_외의_뮸자가_입력될_경우() {
+    @DisplayName("숫자_세개가_전부_일치_할_경우_3_strike")
+    public void returnSolvedResultIfMatchedNumber  () {
+        game.question = "123";
+        GuessResult result = game.guess("123");
 
-    }
-
-    @Test
-    public void 입력값에_중복된_숫자가_입력될_경우() {
-
-    }
-
-    @Test
-    public void 숫자_세개가_전부_일치_할_경우_3_strike() {
+        assertNotNull(result);
+        assertEquals(true, result.solved);
+        assertEquals(3, result.strikes);
+        assertEquals(0, result.balls);
 
     }
 
