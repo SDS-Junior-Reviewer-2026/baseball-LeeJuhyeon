@@ -50,8 +50,15 @@ public class GameTest {
     }
 
     @Test
-    public void 숫자_세개가_전부_일치_하지_않을_경우_0_strike_0_ball() {
+    @DisplayName("숫자_세개가_전부_일치_하지_않을_경우_0_strike_0_ball")
+    public void returnSolvedResultIfUnMatchedNumber() {
+        game.question = "123";
+        GuessResult result = game.guess("456");
 
+        assertNotNull(result);
+        assertEquals(false, result.isSolved());
+        assertEquals(0, result.getStrikes());
+        assertEquals(0, result.getBalls());
     }
 
     @Test
