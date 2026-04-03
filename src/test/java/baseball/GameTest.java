@@ -15,6 +15,16 @@ public class GameTest {
         game = new Game();
     }
 
+    @Test
+    @DisplayName("입력값이 이상한 경우")
+    public void throwIllegalArgumentExceptionInvalidInput() {
+        assertIllegalArgument(null);
+        assertIllegalArgument("12");
+        assertIllegalArgument("1234");
+        assertIllegalArgument("12S");
+        assertIllegalArgument("121");
+    }
+
     private void assertIllegalArgument(String guessNumber) {
         try {
             game.guess(guessNumber);
@@ -25,40 +35,28 @@ public class GameTest {
     }
 
     @Test
-    @DisplayName("입력값이 이상한 경우")
-    public void throwIllegalArgumentExceptionInvalidInput() {
-        assertIllegalArgument(null);
-        assertIllegalArgument("12");
-        assertIllegalArgument("1234");
-        assertIllegalArgument("12S");
-        assertIllegalArgument("121");
-
-    }
-
-
-    @Test
     @DisplayName("숫자_세개가_전부_일치_할_경우_3_strike")
-    public void returnSolvedResultIfMatchedNumber  () {
-        game.question = "123";
-        GuessResult result = game.guess("123");
-
-        assertNotNull(result);
-        assertEquals(true, result.isSolved());
-        assertEquals(3, result.getStrikes());
-        assertEquals(0, result.getBalls());
-
+    public void returnSolvedResultIfMatchedNumber() {
+        generateQuestion("123");
+        assertMatchedNumber(game.guess("123"), true, 3, 0);
     }
 
     @Test
     @DisplayName("숫자_세개가_전부_일치_하지_않을_경우_0_strike_0_ball")
     public void returnSolvedResultIfUnMatchedNumber() {
-        game.question = "123";
-        GuessResult result = game.guess("456");
+        generateQuestion("123");
+        assertMatchedNumber(game.guess("456"), false, 0, 0);
+    }
 
+    private void generateQuestion(String guessNumber) {
+        game.question = guessNumber;
+    }
+
+    private static void assertMatchedNumber(GuessResult result, boolean solved, int strike, int balls) {
         assertNotNull(result);
-        assertEquals(false, result.isSolved());
-        assertEquals(0, result.getStrikes());
-        assertEquals(0, result.getBalls());
+        assertEquals(solved, result.isSolved());
+        assertEquals(strike, result.getStrikes());
+        assertEquals(balls, result.getBalls());
     }
 
     @Test
