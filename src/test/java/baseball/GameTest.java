@@ -49,10 +49,12 @@ public class GameTest {
     }
 
     @Test
-    @DisplayName("스트라이크만_있을_경우_2_strike_0_ball")
+    @DisplayName("1~2개 맞은 경우")
     public void returnSolvedResultIfSomeMatchedNumber() {
         generateQuestion("123");
         assertMatchedNumber(game.guess("120"), false, 2, 0);
+        assertMatchedNumber(game.guess("061"), false, 0, 1);
+        assertMatchedNumber(game.guess("136"), false, 1, 1);
     }
 
     private void generateQuestion(String guessNumber) {
