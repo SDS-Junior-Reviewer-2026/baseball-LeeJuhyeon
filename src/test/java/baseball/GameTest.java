@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class GameTest {
 
@@ -15,21 +16,23 @@ public class GameTest {
         game = new Game();
     }
 
-    @Test
-    @DisplayName("입력값이_없을_경우")
-    public void ThrowExceptionWhenInputIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            game.guess(null);
-        });
+    private void assertIllegalArgument(String guessNumber) {
+        try {
+            game.guess(guessNumber);
+            fail();
+        } catch (IllegalArgumentException e) {
+
+        }
     }
 
     @Test
-    @DisplayName("입력값_자리수가_세자리가_아닐_경우")
-    public void ThrowExceptionWhenInputLengthIsUnmatched() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            game.guess("12");
-        });
+    @DisplayName("입력값이 이상한 경우")
+    public void throwIllegalArgumentExceptionInvalidInput() {
+        assertIllegalArgument(null);
+        assertIllegalArgument("12");
+        assertIllegalArgument("1234");
     }
+
 
     @Test
     public void 입력값에_숫자_외의_뮸자가_입력될_경우() {
